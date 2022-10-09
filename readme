@@ -1,0 +1,104 @@
+　　- bin (程序入口)
+　　- conf (配置文件setting)
+　　- db (数据库)
+　　- lib (公共类库，基类之类的)
+　　- log (日志目录)
+　　- src (逻辑目录)
+
+
+import cx_Oracle
+import config
+
+
+class OracleOperation(object):
+
+    # 执行下面的execute_sql方法时会自动执行该初始化方法进行连接数据库
+    def __init__(self):
+        # 建立连接
+        self.conn = cx_Oracle.connect(config.name, config.password, config.host_port_sid)
+        # 创建游标
+        self.cursor = self.conn.cursor()
+
+    def execute_sql(self, sql):
+        """
+        执行sql语句，并commit提交
+        :param sql:需要执行的sql语句
+        :return:
+        """
+        self.cursor.execute(sql)
+        self.conn.commit()
+
+    def get_data(self):
+        """
+        获得查询数据
+        :return: 返回查到的数据
+        """
+        data = self.cursor.fetchall()
+        return data
+
+    def close_oracle(self):
+        # 关闭游标
+        self.cursor.close()
+        # 关闭数据库连接
+        self.conn.close()
+
+
+
+        # class mailLogin(unittest.TestCase):
+    # HonWell升级
+    # def test_setUpChrome(self):
+    #     # 创建出启动浏览器所需要配置 -- 实例化ChromeOptions浏览器选项对象
+    #     co = webdriver.ChromeOptions()
+    #     # 屏蔽HTTPS安全
+    #     co.add_argument('--ignore-certificate-errors')
+    #     # 构建配置信息 -- 通过浏览器选项对象调用配置方法
+    #     #co.headless = True  # 设置浏览器为无头模式
+    #     url = 'https://192.168.0.52/'
+    #     os.chdir("F:/chromedriver_win32")
+    #     # 将配置信息加入到浏览器启动 -- 实例化浏览器驱动对象添加属性option值-谷歌无头启动
+    #     self.browser = webdriver.Chrome(options=co)
+    #     # 谷歌默认启动
+    #     # self.browser = webdriver.Chrome()
+    #     self.browser.get(url)
+    #
+    #     self.browser.find_element_by_id('username').send_keys('admin')
+    #     self.browser.find_element_by_id('password').send_keys('HON123well@')
+    #     self.browser.find_element_by_class_name('btn-submit').click()
+    #     time.sleep(5)
+    #     self.browser.find_element_by_class_name('hamburgermenu').click()
+    #     time.sleep(5)
+    #     self.browser.find_element_by_xpath('//*[@id="sidebar"]/ul/li[2]').click()
+    #     time.sleep(5)
+    #     self.browser.find_element_by_xpath('//*[@id="sidebar"]/ul/li[2]/ul/li/div/ul/li[6]').click()
+    #     time.sleep(5)
+    #     self.browser.find_element_by_id('mat-tab-label-0-1').click()
+    #     time.sleep(5)
+    #     update_url='F:\/a.log'
+    #     self.browser.find_element_by_xpath("//*[@id='maintainance-general-settings']/form/div[1]/div/div[1]/div/input").send_keys(update_url)
+    #     time.sleep(5)
+    #     self.browser.find_element_by_xpath('//*[@id="maintainance-general-settings"]/form/div[1]/div/div[2]/button').click()
+    #     time.sleep(100)
+    #     self.browser.quit()
+
+    def test_setUpIe(self):
+        t = TestB()
+        t.open_browser()
+        # url = 'https://www.12306.cn/index/'
+        # os.chdir("F:/iedriver_win32")
+        # self.browser = webdriver.Ie()
+        # self.browser.get(url)
+        # time.sleep(5)
+
+
+
+
+    # 测试数据库
+    # def test_a(self):
+    #     # 连接数据库，获取连接实例对象
+    #     db = db_main.DB()
+    #     # 从数据库中获取需要执行的api执行集合
+    #     # api_list = db.get_api_list()
+    #     api_case = db.get_api_case('Nt98520')
+    #     db.write_check_result('chip', 'ny', 9)
+    #     api_list = db.get_api_list()
+    #     print(api_list)
